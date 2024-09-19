@@ -1,8 +1,18 @@
-const catchAsyncError = require("../middlewares/catch_async_errors");
+const sendResponse = require("../helpers/custom_success.response");
+const MovieRepository = require("../repository/movie.repository");
+const MovieService = require("../services/movie.service");
 
-const createMovie=catchAsyncError(async (req,res,next)=>{
-    res.send("create movie");
-})
+const movieService=new MovieService(new MovieRepository)
+async function createMovie(req,res,next){
+      try{
+        const isMovieCreated=req.body;
+        if(isMovieCreated){
+             sendResponse();
+        }
+      }catch(error){
+        next(error)
+      }
+}
 
 module.exports={
     createMovie,
