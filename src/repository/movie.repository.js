@@ -1,9 +1,10 @@
 const {Movie} =require("../models")
 class MovieRepository{
        async create(movie){
-         ss
+             
              try{
-                //const isMovieCreated=await Movie.create(movie);
+                const isMovieCreated=await Movie.create(movie);
+                return isMovieCreated.dataValues;
              }catch(error){
                 throw error
              }
