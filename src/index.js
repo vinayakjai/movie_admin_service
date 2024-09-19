@@ -9,9 +9,11 @@ app.use(bodyParser.text());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
-app.use(api_router);
-app.use(errorHndler());
+app.use('/api',api_router);
+
 
 app.listen(PORT,()=>{
-    console.log(`server is running at port ${PORT}`)
+    console.log(`server is running at port http://localhost:${PORT}`)
 })
+
+app.use(errorHndler);
