@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     available: {
       type: DataTypes.ENUM,
-      values: ['open', 'not open'],
+      values: ['open', 'not_open','closed'],
       allowNull: false,
       defaultValue: 'not open',
     },

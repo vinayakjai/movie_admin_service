@@ -12,14 +12,30 @@ module.exports = {
       movie_name: {
         type: Sequelize.STRING,
         allowNull: false,
+        unique:true,
       },
       movie_image: {
         type: Sequelize.STRING,
         allowNull: false,
+        unique:true,
       },
       certificate: {
-        type: Sequelize.STRING,
+        type: Sequelize.ENUM(
+          'G',       // General Audiences (USA)
+          'PG',      // Parental Guidance (USA)
+          'PG-13',   // Parents Strongly Cautioned (USA)
+          'R',       // Restricted (USA)
+          'NC-17',   // Adults Only (USA)
+          'U',       // Universal (India, UK)
+          'UA',      // Parental Guidance (India)
+          'A',       // Adults Only (India)
+          'S',       // Special Category (India)
+          '12A',     // 12 Accompanied (UK)
+          '15',      // 15 and above (UK)
+          '18'       // Adults Only (UK)
+        ),
         allowNull: false,
+        
       },
       release_date: {
         type: Sequelize.DATE,
@@ -27,7 +43,7 @@ module.exports = {
       },
       available: {
         type: Sequelize.ENUM,
-        values: ['open', 'not_open'],
+        values: ['open', 'not_open','closed'],
         allowNull: false,
         defaultValue: 'not_open',
       },

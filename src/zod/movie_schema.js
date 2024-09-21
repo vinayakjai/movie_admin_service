@@ -1,31 +1,33 @@
-const { z } = require("zod");
-
+const {z}=require("zod");
 const movieSchema = z.object({
   movie_name: z
     .string({
-      required_error: "movie name is required",
-      invalid_type_error: "movie name must be a valid string",
+      invalid_type_error: "movie name must be a string",
     })
-    .min(1), // Ensures string is at least 1 character long
-
-  release_date: z.string({
-    required_error: "Release date is required",
-    invalid_type_error: "Release date must be a valid string",
-  }),
-  movie_image: z.string({
-    required_error: "image source is required",
-    invalid_type_error: "image sourse must be a valid string",
-  }),
-  available: z.enum(["open", "not open"], {
-    invalid_type_error: "Available status must be either 'open' or 'not open'",
-    required_error: "Available status is required",
-  }),
-  certificate: z
+    .min(1, "Title is required"),
+  release_date: z
     .string({
-      required_error: "movie certificate is required",
-      invalid_type_error: "movie certificate must be a valid string",
+      required_error: "release date is required",
     })
-    .min(1),
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "Date must be in YYYY-MM-DD format"),
+  certificate: z.enum(
+    ["G", "PG", "PG-13", "R", "NC-17", "U", "UA", "A", "S", "12A", "15", "18"],
+    {
+      required_error: "certificate is required",
+      invalid_type_error: "certificate must be a string",
+    }
+  ),
+  available: z.enum(
+    ["open","not_open","closed"],
+    {
+      required_error: "movie availaibility status is required",
+      invalid_type_error: "availaibility must must be a string",
+    }
+  ),
+  movie_image: z
+  .string({
+    invalid_type_error: "movie image must be a string",
+  })
+  .min(1, "movie image is required"),
 });
-
-module.exports = movieSchema;
+module.exports=movieSchema;
