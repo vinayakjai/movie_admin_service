@@ -1,5 +1,5 @@
-const { createMovie,updateMovie } = require("./movie.controller");
+const { createMovie,updateMovie,deleteMovie } = require("./movie.controller");
 
 module.exports={
-    createMovie,updateMovie
+    createMovie,updateMovie,deleteMovie
 }

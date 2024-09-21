@@ -13,6 +13,11 @@ class MovieService {
         const isMovieUpdated=await this.repository.update(movieUpdatedInfo,movieId);
         return isMovieUpdated;
     }
+
+    async deleteMovie(movieId){
+        const isMovieDeleted=await this.repository.delete(movieId);
+        return isMovieDeleted;
+    }
 }
 
 module.exports=MovieService;

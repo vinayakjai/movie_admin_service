@@ -1,7 +1,7 @@
-function sendResponse(res,status,message,data){
-    console.log(data)
+function sendSuccessResponse(res,status,message,data){
+    console.log("in success response",data)
     try{
-      
+        console.log("sending response")
         return res.status(status).json({
             success:true,
             data,
@@ -15,4 +15,4 @@ function sendResponse(res,status,message,data){
     }
 }
 
-module.exports=sendResponse;
+module.exports=sendSuccessResponse;

@@ -1,4 +1,4 @@
-const sendResponse = require("../helpers/custom_success_response.js");
+const sendSuccessResponse = require("../helpers/custom_success_response.js");
 const MovieRepository = require("../repository/movie.repository");
 const MovieService = require("../services/movie.service");
 const { StatusCodes } = require("http-status-codes");
@@ -11,15 +11,21 @@ async function createMovie(req, res, next) {
 
     const isMovieCreated = await movieService.createMovie(movie);
 
-    if (isMovieCreated) {
-      sendResponse(
+     console.log(isMovieCreated)
+     if(!isMovieCreated){
+     return  res.status(500).json({
+        message:"unable to create movie",
+      })
+     }
+      sendSuccessResponse(
         res,
         StatusCodes.CREATED,
         "movie created successfully!",
         isMovieCreated
       ); //response_object,STATUS,MESSAGE,DATA
-    }
+    
   } catch (error) {
+    console.log("controller error",error)
     next(error);
   }
 }
@@ -32,7 +38,7 @@ async function updateMovie(req, res, next) {
     const isMovieUpdated = await movieService.updateMovie(req.body,movieId);
 
     if (isMovieUpdated) {
-      sendResponse(
+      sendSuccessResponse(
         res,
         StatusCodes.CREATED,
         "movie updated successfully!",
@@ -44,7 +50,25 @@ async function updateMovie(req, res, next) {
   }
 }
 
+async function deleteMovie(req,res,next){
+  try{
+    const movieId=req.params.id;
+    
+    const isMovieDeleted=await movieService.deleteMovie(movieId);
+    console.log("in controller",isMovieDeleted)
+    if(isMovieDeleted){
+      sendSuccessResponse(res,200,"movie deleted successfully",isMovieDeleted);
+     
+    }
+  
+   
+  }catch(error){
+    next(error);
+  }
+}
+
 module.exports = {
   createMovie,
   updateMovie,
+  deleteMovie
 };
